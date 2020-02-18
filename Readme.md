@@ -1,21 +1,25 @@
+# Enabling MLOps with Actions, Pages and Azure ML
+
+_This repository is built off of another [MLOps demonstration](https://github.com/marvinbuss/MLDevOps) repo by Marvin Buss._
+
 <p align="center">
-  <a href="https://github.com/marvinbuss/MLDevOps">
-    <img alt="GitHub Actions status" src="https://github.com/marvinbuss/MLDevOps/workflows/DevOps for ML (CI/CD)/badge.svg">
-  </a>
-</p>
-<p align="center">
-  <img src="pictures/github-actions-azure-machine-learning.png" alt="GitHub Actions and Azure Machine Learning" height="250"/>
+  <img src="https://notebooks.azure.com/api/user/azureml/photo" height="80"/>
+  <img src="https://i.ya-webdesign.com/images/a-plus-png-2.png" alt="plus" height="40"/>
+  <img src="https://avatars0.githubusercontent.com/u/44036562?s=200&v=4" alt="Azure Machine Learning + Actions" height="80"/>
+  <img src="https://i.ya-webdesign.com/images/a-plus-png-2.png" alt="plus" height="40"/>
+  <img src="https://codetheweb.blog/assets/img/posts/github-pages-free-hosting/cover.png" alt="GitHub Pages" height="80"/>
 </p>
 
-# ML DevOps with GitHub Actions and Azure ML
+This repository demonstrates how some standardized structure and metadata along with orchestration tools like [GitHub Actions](https://github.com/features/actions) as well as [Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/) we can build a MLOps supported project.
 
-This repository demonstrates how to automate the machine learning lifecycle using the CI/CD pipeline tools of [GitHub Actions](https://github.com/features/actions) and [Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/) for training and deployment. The repository does not make use of Azure DevOps, but uses [GitHub Actions](https://github.com/features/actions) as a future proof backend system for workflow automation.
+## TODO Change this part below
 
 The repository includes the following features:
 - [GitHub Actions](https://github.com/features/actions) for the continuous integration (CI) and continuous delivery (CD) pipeline
 - [Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/) as a backend for training and deployment of machine learning models
 - CI/CD pipeline as code: the repository uses the [Azure Machine Learning Python SDK](https://docs.microsoft.com/en-us/python/api/overview/azure/ml/intro?view=azure-ml-py) to define the CI/CD steps and implements almost all features of this framework
 - Central settings file in json format to enable quick customization of of each step of the pipline
+- Notebooks, central
 
 ## Implemented Azure ML features in the CI/CD pipeline
 
