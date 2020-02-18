@@ -14,8 +14,8 @@
 
 |  |  |
 | ------- | --- |
-| Numeric | 7 |
-| Categorical | 8 |
+| Numeric | 8 |
+| Categorical | 7 |
 | Boolean | 2 |
 | Date |0 |
 | Text (Unique) | 0 |
