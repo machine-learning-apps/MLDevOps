@@ -33,7 +33,7 @@ jobs:
 
     - name: Convert notebook to script
       run: |
-        jupyter nbconvert --to-script code/training/train.ipynb
+        jupyter nbconvert --to=script code/training/train.ipynb
     
     - name: Create or Connect to Workspace
       run: |
