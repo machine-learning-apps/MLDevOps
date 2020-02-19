@@ -23,7 +23,7 @@ title: MLOps Example Dashboard
 email: support@github.com
 
 description: A Dashboard for MLOps, generated automatically by GitHub Pages.
-baseurl: "/actions-ml-cicd" # the subpath of your site, e.g. /blog
+baseurl: "/MLDevOps" # the subpath of your site, e.g. /blog
 url: "https://machine-learning-apps.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
@@ -44,7 +44,7 @@ heading_anchors: true
 # Aux links for the upper right navigation
 aux_links:
   "Edit On GitHub":
-    - "//github.com/machine-learning-apps/actions-ml-cicd/tree/master/docs"
+    - "//github.com/machine-learning-apps/MLDevOps/tree/master/docs"
 
 # Footer content appears at the bottom of every page's main content
 footer_content: ""
