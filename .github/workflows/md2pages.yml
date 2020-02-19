@@ -1,12 +1,12 @@
 name: Project Data to Pages
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'project/model_card.md'
-      - 'project/data_dictionary.md'
-      - 'project/model_events.csv'
+on: [push]
+#   push:
+#     branches:
+#       - master
+#     paths:
+#       - 'project/model_card.md'
+#       - 'project/data_dictionary.md'
+#       - 'project/model_events.csv'
 
 jobs:
   copy-build-deploy:
@@ -19,7 +19,7 @@ jobs:
       - name: Copy Repository Contents
         run: |
           chmod -R 777 docs/docs
-          ./action_files/copy_files.sh
+          ./actions_files/copy_files.sh
 
       - name: setup directories for Jekyll build
         run: |
