@@ -15,6 +15,7 @@ nav_order: 2
 echo "---
 layout: primer
 title: Data Dictionary
+permalink: /data
 nav_order: 3
 ---
 
