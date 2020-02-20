@@ -77,3 +77,24 @@ jobs:
       run: |
         echo ${{ steps.prod_deployment.outputs.prod_scoring_uri }}
         echo ${{ steps.prod_deployment.outputs.prod_swagger_uri }}
+
+    - name: Update Model Timeline
+      id: portal_url
+      run: |
+        pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+        git_hash=$(git rev-parse --short "$GITHUB_SHA")
+        echo "$(date),rocket,model deployment,experiment link,${{ steps.prod_deployment.outputs.prod_swagger_uri }},$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
+          
+    - name: Commit files
+      id: commit_files
+      run: |
+        git config --local user.email "awmatheson@github.com"
+        git config --local user.name "awmatheson"
+        git add project/model_events.csv
+        git commit -m "Add new training run"
+        
+    - name: Push changes
+      id: push_changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
