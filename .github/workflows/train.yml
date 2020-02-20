@@ -1,4 +1,4 @@
-name: DevOps for ML (CI/CD)
+name: Train (CI/CD)
 
 on:
   pull_request:
