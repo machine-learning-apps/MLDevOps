@@ -1,7 +1,7 @@
 name: DevOps for ML (CI/CD)
 
 on:
-  pull_request:
+  push:
     branches:
     - master
     paths:
