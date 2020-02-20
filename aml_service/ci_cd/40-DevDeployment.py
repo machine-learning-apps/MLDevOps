@@ -46,9 +46,6 @@ profiling_result["cpu"] = os.environ.get("CPU", default=None)
 profiling_result["memory"] = os.environ.get("MEMORY", default=None)
 profiling_result["image_id"] = os.environ.get("IMAGE_ID", default=None)
 
-with open(os.path.join("aml_service", "profiling_result.json")) as f:
-    profiling_result = json.load(f)
-
 # Get workspace
 print("Loading Workspace")
 cli_auth = AzureCliAuthentication()
