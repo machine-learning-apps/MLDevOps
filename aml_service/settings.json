@@ -292,5 +292,11 @@
             "primary_key": null,
             "secondary_key": null
         }
+    },	
+    "workspace":{	
+        "config": {	
+            "path": "aml_service",	
+            "file_name": "config.json"	
+        }
     }
 }
