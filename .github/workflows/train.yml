@@ -9,7 +9,7 @@ on:
 
 jobs:
   train:
-    name: Model Training and Deployment
+    name: Model Training
     runs-on: ubuntu-latest
 
     steps:
