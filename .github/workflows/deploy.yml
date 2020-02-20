@@ -1,4 +1,4 @@
-name: Deployment
+name: Deployment (CI/CD)
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   train-and-deploy:
-    name: Model Training and Deployment
+    name: Model Deployment
     runs-on: ubuntu-latest
 
     steps:
