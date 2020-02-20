@@ -106,7 +106,8 @@
         },
         "data_references": {},
         "max_run_duration_seconds": null,
-        "use_custom_environment": false
+        "use_custom_environment": false,
+        "download_outputs": ["comments.txt"]
     },
     "compute_target": {
         "compute_target_to_use_for_training": "amlcompute",

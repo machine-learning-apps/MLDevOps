@@ -8,7 +8,7 @@ on:
     - 'code/**'
 
 jobs:
-  train-and-deploy:
+  train:
     name: Model Training and Deployment
     runs-on: ubuntu-latest
 
@@ -42,23 +42,14 @@ jobs:
     - name: Train Model
       run: |
         python 'aml_service/ci_cd/10-Train.py'
+
+    - name: comment PR
+      uses: machine-learning-apps/pr-comment@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        path: outputs/comments.txt
     
     - name: Evaluate and Register Model
       run: |
         python 'aml_service/ci_cd/20-RegisterModel.py'
-    
-    - name: Profile Model
-      run: |
-        python 'aml_service/ci_cd/30-ProfileModel.py'
-    
-    - name: Dev Deployment
-      run: |
-        python 'aml_service/ci_cd/40-DevDeployment.py'
-    
-    - name: Test Deployment
-      run: |
-        python 'aml_service/ci_cd/50-TestDeployment.py'
-    
-    - name: Production Deployment
-      run: |
-        python 'aml_service/ci_cd/60-ProdDeployment.py'
