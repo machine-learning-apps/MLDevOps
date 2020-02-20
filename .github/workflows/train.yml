@@ -14,36 +14,44 @@ jobs:
 
     steps:
     - name: Check Out Repository
+      id: checkout_repository
       uses: actions/checkout@master
     
     - name: Azure Login
+      id: azure_login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Set up Python 3.7
+      id: python_setup
       uses: actions/setup-python@v1
       with:
         python-version: 3.7
     
     - name: Install Dependencies
+      id: dependencies_setup
       run: |
         python -m pip install --upgrade pip
         pip install -r 'aml_service/ci_cd/requirements.txt'
     
     - name: Create or Connect to Workspace
+      id: workspace_setup
       run: |
         python 'aml_service/ci_cd/00-WorkSpace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} --friendly-name ${{ secrets.FRIENDLY_NAME }}
     
     - name: Create or Load Azure Machine Learning Compute
+      id: amlcluster_setup
       run: |
         python 'aml_service/ci_cd/01-AttachAmlCluster.py'
     
     - name: Train Model
+      id: model_training
       run: |
         python 'aml_service/ci_cd/10-Train.py'
 
     - name: comment PR
+      id: comment_pr
       uses: machine-learning-apps/pr-comment@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,5 +59,14 @@ jobs:
         path: outputs/comments.txt
     
     - name: Evaluate and Register Model
+      id: register_model
       run: |
         python 'aml_service/ci_cd/20-RegisterModel.py'
+      env:
+        RUN_ID: ${{ steps.model_training.outputs.run_id }}
+        EXPERIMENT_NAME: ${{ steps.model_training.outputs.experiment_name }}
+    
+    - name: Azure ML Portal URL
+      id: portal_url
+      run: |
+        echo ${{ steps.model_training.outputs.run_url }}
