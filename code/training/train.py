@@ -50,7 +50,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 data = {"train": {"X": X_train, "y": y_train}, "test": {"X": X_test, "y": y_test}}
 
 with open("./outputs/comments.txt", "a+") as myfile:
-    myfile.write("Training a ridge regression model with sklearn and random alpha value")
+    myfile.write("Training a ridge regression model with scikit-learn and random alpha value. ")
 print("Training a ridge regression model with sklearn and random alpha value")
 alphas = np.arange(0.0, 1.0, 0.05)
 alpha = alphas[np.random.choice(alphas.shape[0], 1, replace=False)][0]
@@ -61,7 +61,7 @@ preds = reg.predict(data["test"]["X"])
 mse = mean_squared_error(preds, data["test"]["y"])
 with open("./outputs/comments.txt", "a") as myfile:
     myfile.write("Alpha is {0:.2f}, and MSE is {1:0.2f}".format(alpha, mse))
-print("Alpha is {0:.2f}, and MSE is {1:0.2f}".format(alpha, mse))
+print("Alpha is {0:.2f}, and MSE is {1:0.2f}.".format(alpha, mse))
 
 print("Logging values")
 run.log("alpha", alpha)
