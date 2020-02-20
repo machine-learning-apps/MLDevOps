@@ -49,7 +49,7 @@ print("Creating train test split")
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=RANDOM_STATE)
 data = {"train": {"X": X_train, "y": y_train}, "test": {"X": X_test, "y": y_test}}
 
-with open("./outputs/comments.txt", "a") as myfile:
+with open("./outputs/comments.txt", "a+") as myfile:
     myfile.write("Training a ridge regression model with sklearn and random alpha value")
 print("Training a ridge regression model with sklearn and random alpha value")
 alphas = np.arange(0.0, 1.0, 0.05)

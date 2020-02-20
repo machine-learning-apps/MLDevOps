@@ -42,6 +42,13 @@ jobs:
     - name: Train Model
       run: |
         python 'aml_service/ci_cd/10-Train.py'
+
+    - name: comment PR
+      uses: machine-learning-apps/pr-comment@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        path: output/results.txt
     
     - name: Evaluate and Register Model
       run: |
