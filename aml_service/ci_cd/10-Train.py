@@ -272,7 +272,7 @@ for file_name in experiment_settings["download_outputs"]:
         print(f"Downloading file {file_name}")
         file_path = f"outputs/{file_name}"
         output_path = os.path.join("outputs", file_name)
-        run.download_outputs(file_path, output_path)
+        run.download_file(file_path, output_path)
     except UserErrorException as exception:
         print(f"Download of file {file_name} failed: {exception}")
 
