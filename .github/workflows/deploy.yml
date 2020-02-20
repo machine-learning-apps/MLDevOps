@@ -8,8 +8,8 @@ on:
     - 'code/**'
 
 jobs:
-  train-and-deploy:
-    name: Model Training and Deployment
+  deploy:
+    name: Model Deployment
     runs-on: ubuntu-latest
 
     steps:
