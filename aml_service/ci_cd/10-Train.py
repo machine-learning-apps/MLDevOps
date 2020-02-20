@@ -33,6 +33,7 @@ from azureml.train.dnn import Chainer, PyTorch, TensorFlow, Gloo, Nccl
 from azureml.train.sklearn import SKLearn
 from azureml.train.estimator import Estimator
 from azureml.train.hyperdrive import HyperDriveConfig, PrimaryMetricGoal
+from azureml.exceptions import UserErrorException
 from helper import utils
 
 # Load the JSON settings file and relevant section
@@ -264,6 +265,16 @@ if run.get_status() != "Completed":
             run.get_status(), run.get_details_with_logs()
         )
     )
+
+# Download output file
+for file_name in experiment_settings["download_outputs"]:
+    try:
+        print(f"Downloading file {file_name}")
+        file_path = f"outputs/{file_name}"
+        output_path = os.path.join("outputs", file_name)
+        run.download_outputs(file_path, output_path)
+    except UserErrorException as exception:
+        print(f"Download of file {file_name} failed: {exception}")
 
 # Writing the run id to /aml_service/run_id.json
 run_details = {}
