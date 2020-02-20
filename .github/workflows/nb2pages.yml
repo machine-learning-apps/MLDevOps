@@ -1,6 +1,6 @@
 name: Convert Notebooks To Docs
 on:
-  pull_request:
+  push:
     branches:
       - master
     paths:
