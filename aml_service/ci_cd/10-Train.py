@@ -43,12 +43,16 @@ with open(os.path.join("aml_service", "settings.json")) as f:
 experiment_settings = settings["experiment"]
 compute_target_to_use = settings["compute_target"]["compute_target_to_use_for_training"].strip().lower()
 compute_target_name = settings["compute_target"]["training"][compute_target_to_use]["name"]
-workspace_config_settings = settings["workspace"]["config"]
 
 # Get workspace
 print("Loading Workspace")
 cli_auth = AzureCliAuthentication()
-ws = Workspace.from_config(path=workspace_config_settings["path"], auth=cli_auth, _file_name=workspace_config_settings["file_name"])
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
+config_file_name = "aml_arm_config.json"
+ws = Workspace.from_config(
+    path=config_file_path,
+    auth=cli_auth,
+    _file_name=config_file_name)
 print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep = '\n')
 
 # Attach Experiment
@@ -276,9 +280,7 @@ for file_name in experiment_settings["download_outputs"]:
     except UserErrorException as exception:
         print(f"Download of file {file_name} failed: {exception}")
 
-# Writing the run id to /aml_service/run_id.json
-run_details = {}
-run_details["run_id"] = run.id
-run_details["experiment_name"] = run.experiment.name
-with open(os.path.join("aml_service", "run_details.json"), "w") as outfile:
-    json.dump(run_details, outfile)
+# Creating GitHub Actions outputs
+print(f"::set-output name=run_id::{run.id}")
+print(f"::set-output name=experiment_name::{run.experiment.name}")
+print(f"::set-output name=run_url::{run.get_portal_url()}")

@@ -38,15 +38,19 @@ import test_functions
 print("Loading settings")
 with open(os.path.join("aml_service", "settings.json")) as f:
     settings = json.load(f)
-workspace_config_settings = settings["workspace"]["config"]
 deployment_settings = settings["deployment"]
 env_name = settings["experiment"]["name"]  + "_deployment"
 
-# Get Workspace
+# Get workspace
 print("Loading Workspace")
 cli_auth = AzureCliAuthentication()
-ws = Workspace.from_config(path=workspace_config_settings["path"], auth=cli_auth, _file_name=workspace_config_settings["file_name"])
-print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep="\n")
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
+config_file_name = "aml_arm_config.json"
+ws = Workspace.from_config(
+    path=config_file_path,
+    auth=cli_auth,
+    _file_name=config_file_name)
+print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep = '\n')
 
 # Loading Model
 print("Loading Model")
@@ -109,10 +113,7 @@ profile = Model.profile(workspace=ws,
 profile.wait_for_profiling(show_output=True)
 print(profile.get_results(), profile.recommended_cpu, profile.recommended_cpu_latency, profile.recommended_memory, profile.recommended_memory_latency, sep="\n")
 
-# Writing the profiling results to /aml_service/profiling_result.json
-profiling_result = {}
-profiling_result["cpu"] = profile.recommended_cpu
-profiling_result["memory"] = profile.recommended_memory
-profiling_result["image_id"] = profile.image_id
-with open(os.path.join("aml_service", "profiling_result.json"), "w") as outfile:
-    json.dump(profiling_result, outfile)
+# Creating GitHub Actions outputs
+print(f"::set-output name=cpu::{profile.recommended_cpu}")
+print(f"::set-output name=memory::{profile.recommended_memory}")
+print(f"::set-output name=image_id::{profile.image_id}")
