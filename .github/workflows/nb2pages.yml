@@ -29,7 +29,7 @@ jobs:
         git clone https://github.com/fastai/nbdev.git
         pip install -e nbdev
         cp nbdev/settings.ini .
-        python actions_files/nb2docs.py
+        python action_files/nb2docs.py
 
     - name: setup directories for Jekyll build
       run: |
