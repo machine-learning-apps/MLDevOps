@@ -10,11 +10,11 @@ nav_order: 4
         {% octicon {{ event.icon }} %}
         </div>
         <div class="TimelineItem-body">
-        <span>{{ event.event_type }}, {{ event.comment }}<br><p class="f6">{{ event.datetime }}</p></span>
+        <span>{{ event.event_type }}, <a href="{{ event.detail_link }}">{{ event.details }}</a><br><p class="f6">{{ event.datetime }}</p></span>
         </div>
         <div class="d-flex flex-column">
           <p class="branch-name">
-            {% octicon git-commit %} <a href="{{ event.reference }}">{{ event.link }}</a>
+            {% octicon {{ event.link_type }} %} <a href="{{ event.reference }}">{{ event.link }}</a>
           </p>
           <div></div>
         </div>
