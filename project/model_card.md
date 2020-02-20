@@ -1,30 +1,28 @@
 ## Model Details
 
-- Developed by Data Scientists at GitHub with inspiration from [kaggle](https://www.kaggle.com/team-ai/spam-text-message-classification/kernels)
-- Random Forest.
-- Preprocessed to clean text prior to tokenization.
+- Developed by Data Scientists at Microsoft and GitHub, based off the frequently used examples that use the diabetes dataset.
+- Ridge Regression.
 
 ## Intended Use
 
 - Intended to be used for demonstration purposes and not commercial or otherwise.
-- Not suitable for languages outside of english and should be assessed for the accuracy with different dialects/cultures.
+- Not suitable for actual diagnosis or research in any way.
 
 ## Factors
 
-- Based on known problems with different text based communication methods, potential relevant factors include groups for gender, age and culture.
+- None
 
 ## Metrics
 
-- Evaluation metrics include False Positive Rate and False Negative Rate to
-measure disproportionate model performance errors across subgroups.
+- Evaluation metrics for this example are Mean Squared Error.
 
 ## Training Data
 
-- Dataset metadata is available in the data tab.
+- Dataset metadata is available in the **[data tab]({{ "/data" | relative_url }})**.
 
 ## Ethical Considerations
 
-- Innapropriate marking of spam or ham may be considered offensive if the model is biased towards a certain grammar.
+- This is just a toy example and does not take into account any of the underlying issues that may exist with the dataset.
 
 ## Caveats and Recommendations
 
