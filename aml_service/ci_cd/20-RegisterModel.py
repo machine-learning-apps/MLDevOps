@@ -32,18 +32,22 @@ from azureml.core.authentication import AzureCliAuthentication
 print("Loading settings")
 with open(os.path.join("aml_service", "settings.json")) as f:
     settings = json.load(f)
-workspace_config_settings = settings["workspace"]["config"]
 deployment_settings = settings["deployment"]
 
 # Get details from Run
-print("Loading Run Details")
-with open(os.path.join("aml_service", "run_details.json")) as f:
-    run_details = json.load(f)
+run_details = {}
+run_details["run_id"] = os.environ.get("RUN_ID", default=None)
+run_details["experiment_name"] = os.environ.get("EXPERIMENT_NAME", default=None)
 
-# Get Workspace
+# Get workspace
 print("Loading Workspace")
 cli_auth = AzureCliAuthentication()
-ws = Workspace.from_config(path=workspace_config_settings["path"], auth=cli_auth, _file_name=workspace_config_settings["file_name"])
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
+config_file_name = "aml_arm_config.json"
+ws = Workspace.from_config(
+    path=config_file_path,
+    auth=cli_auth,
+    _file_name=config_file_name)
 print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep = '\n')
 
 # Loading Run
@@ -81,7 +85,6 @@ except Exception:
     promote_new_model = True
     print("This is the first model to be trained, thus nothing to evaluate for now")
 
-# TODO: Remove
 if promote_new_model:
     print("New model performs better, thus it will be registered")
 else:
