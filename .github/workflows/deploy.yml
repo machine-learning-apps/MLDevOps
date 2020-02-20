@@ -83,7 +83,7 @@ jobs:
       run: |
         pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
-        echo "$(date),rocket,model deployment,experiment link,${{ steps.prod_deployment.outputs.prod_swagger_uri }},$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
+        echo "$(date),rocket,model deployment,model link,${{ steps.prod_deployment.outputs.prod_swagger_uri }},git-pull-request,$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
           
     - name: Commit files
       id: commit_files
