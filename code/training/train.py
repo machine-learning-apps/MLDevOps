@@ -63,7 +63,7 @@ with open("./outputs/comments.txt", "a") as myfile:
     myfile.write("Alpha is {0:.2f}, and MSE is {1:0.2f}".format(alpha, mse))
 print("Alpha is {0:.2f}, and MSE is {1:0.2f}.".format(alpha, mse))
 
-print("Logging values")
+print("Logging metrics")
 run.log("alpha", alpha)
 run.log("mse", mse)
 
