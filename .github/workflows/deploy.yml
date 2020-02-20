@@ -1,4 +1,4 @@
-name: DevOps for ML (CI/CD)
+name: Deployment
 
 on:
   push:
