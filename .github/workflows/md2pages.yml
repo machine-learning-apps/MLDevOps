@@ -19,7 +19,7 @@ jobs:
       - name: Copy Repository Contents
         run: |
           chmod -R 777 docs/docs
-          ./actions_files/copy_files.sh
+          ./action_files/copy_files.sh
 
       - name: setup directories for Jekyll build
         run: |
