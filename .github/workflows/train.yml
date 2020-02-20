@@ -48,7 +48,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        path: output/results.txt
+        path: outputs/comments.txt
     
     - name: Evaluate and Register Model
       run: |
