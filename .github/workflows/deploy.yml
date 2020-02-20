@@ -30,10 +30,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r 'aml_service/ci_cd/requirements.txt'
-
-    - name: Convert notebook to script
-      run: |
-        jupyter nbconvert --to=script code/training/train.ipynb
     
     - name: Create or Connect to Workspace
       run: |
