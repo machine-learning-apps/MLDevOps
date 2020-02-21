@@ -6,6 +6,7 @@ on:
     - master
     paths:
     - 'code/**'
+    - 'notebooks/train.ipynb'
 
 jobs:
   train:
@@ -35,6 +36,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r 'aml_service/ci_cd/requirements.txt'
     
+    - name: Convert notebook to script
+      run: |
+        mkdir -p code/training
+        jupyter nbconvert --to=script --output-dir=code/training notebooks/train.ipynb 
+
     - name: Create or Connect to Workspace
       id: workspace_setup
       run: |
