@@ -71,21 +71,29 @@ jobs:
       run: |
         pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
-        echo "$(date),flame,$(cat outputs/comments.txt),experiment link,${{ steps.model_training.outputs.run_url }},git-commit,$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
+        echo "$(date),flame,\"$(cat outputs/comments.txt)\",experiment link,${{ steps.model_training.outputs.run_url }},git-commit,$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
           
     - name: Commit files
-      id: commit_files
       run: |
-        echo $GITHUB_REF
-        git rev-parse --abbrev-ref HEAD
-        git config --local user.email "awmatheson@github.com"
-        git config --local user.name "awmatheson"
+        git config --local user.email awmatheson@gmail.com
+        git config --local user.name awmatheson
+        git checkout -b update-training
+        git reset
         git add project/model_events.csv
         git commit -m "Add new training run"
-        
-    - name: Push changes
-      id: push_changes
-      uses: ad-m/github-push-action@master
+        git push -f --set-upstream origin update-training
+          
+    - name: Open a PR
+      uses: actions/github-script@0.5.0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        force: true
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          var fs = require('fs');
+          github.pulls.create({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        title: 'Training Update',
+                        head: 'update-training',
+                        base: 'master',
+                        body: `New training run`
+                        })
