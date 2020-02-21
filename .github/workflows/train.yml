@@ -76,8 +76,6 @@ jobs:
     - name: Commit files
       id: commit_files
       run: |
-        echo $GITHUB_REF
-        git rev-parse --abbrev-ref HEAD
         git config --local user.email "awmatheson@github.com"
         git config --local user.name "awmatheson"
         git add project/model_events.csv
