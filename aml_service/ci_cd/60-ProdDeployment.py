@@ -45,8 +45,8 @@ aks_compute_settings = settings["compute_target"]["deployment"]["aks_prod"]
 # Loading Model Profile
 print("Loading Model Profile")
 profiling_result = {}
-profiling_result["cpu"] = os.environ.get("CPU", default=None)
-profiling_result["memory"] = os.environ.get("MEMORY", default=None)
+profiling_result["cpu"] = float(os.environ.get("CPU", default=None))
+profiling_result["memory"] = float(os.environ.get("MEMORY", default=None))
 profiling_result["image_id"] = os.environ.get("IMAGE_ID", default=None)
 
 # Get workspace
