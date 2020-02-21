@@ -74,14 +74,14 @@ jobs:
         echo "$(date),flame,\"$(cat outputs/comments.txt)\",experiment link,${{ steps.model_training.outputs.run_url }},git-commit,$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
           
     - name: Commit files
-        run: |
-          git config --local user.email awmatheson@gmail.com
-          git config --local user.name awmatheson
-          git checkout -b update-training
-          git reset
-          git add project/model_events.csv
-          git commit -m "Add new training run"
-          git push -f --set-upstream origin update-training
+      run: |
+        git config --local user.email awmatheson@gmail.com
+        git config --local user.name awmatheson
+        git checkout -b update-training
+        git reset
+        git add project/model_events.csv
+        git commit -m "Add new training run"
+        git push -f --set-upstream origin update-training
           
     - name: Open a PR
       uses: actions/github-script@0.5.0

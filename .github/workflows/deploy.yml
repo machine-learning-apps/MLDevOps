@@ -86,14 +86,14 @@ jobs:
         echo "$(date),rocket,model deployment,model link,${{ steps.prod_deployment.outputs.prod_swagger_uri }},git-pull-request,$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
       
     - name: Commit files
-        run: |
-          git config --local user.email awmatheson@gmail.com
-          git config --local user.name awmatheson
-          git checkout -b update-deploy
-          git reset
-          git add project/model_events.csv
-          git commit -m "Add new deployment"
-          git push -f --set-upstream origin update-deploy
+      run: |
+        git config --local user.email awmatheson@gmail.com
+        git config --local user.name awmatheson
+        git checkout -b update-deploy
+        git reset
+        git add project/model_events.csv
+        git commit -m "Add new deployment"
+        git push -f --set-upstream origin update-deploy
           
     - name: Open a PR
       uses: actions/github-script@0.5.0
