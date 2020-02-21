@@ -5,7 +5,8 @@ on:
       - master
     paths:
       - 'notebooks/*.ipynb'
-      - 'project/model_card.md'
+      - 'project/*.md'
+      - 'project/*.csv'
 
 jobs:
   convert-notebook:
