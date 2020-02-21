@@ -38,7 +38,7 @@
   }
   ,"6": {
     "title": "Model Timeline",
-    "content": "Model Training - Alpha: 0.55, MSE: 2919.01, experiment linkFri Feb 21 03:38:10 UTC 2020 . 5fb4ec9 . model deployment, model linkFri Feb 21 10:13:43 UTC 2020 . 499ed88 . Training a ridge regression model with scikit-learn and random alpha value. Alpha is 0.45, and MSE is 2880.77, experiment linkFri Feb 21 15:29:19 UTC 2020 . 1eb4e2b . Training run - ridge regression, random alpha value. Alpha: 0.25, MSE: 2860.26, experiment linkFri Feb 21 16:34:23 UTC 2020 . 1654920 .",
+    "content": "Model Training - Alpha: 0.55, MSE: 2919.01, experiment linkFri Feb 21 03:38:10 UTC 2020 . 5fb4ec9 . model deployment, model linkFri Feb 21 10:13:43 UTC 2020 . 499ed88 . Training a ridge regression model with scikit-learn and random alpha value. Alpha is 0.45, and MSE is 2880.77, experiment linkFri Feb 21 15:29:19 UTC 2020 . 1eb4e2b . Training run - ridge regression, random alpha value. Alpha: 0.25, MSE: 2860.26, experiment linkFri Feb 21 16:34:23 UTC 2020 . 1654920 . model deployment, model linkFri Feb 21 17:13:34 UTC 2020 . ca4de4e .",
     "url": "https://machine-learning-apps.github.io/MLDevOps/docs/model_timeline/",
     "relUrl": "/docs/model_timeline/"
   }
