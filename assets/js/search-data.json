@@ -38,7 +38,7 @@
   }
   ,"6": {
     "title": "Model Timeline",
-    "content": "",
+    "content": "Training a ridge regression model with scikit-learn and random alpha value. Alpha is 0.70, and MSE is 2980.24, experiment linkFri Feb 21 01:09:29 UTC 2020 . 83c18f6 .",
     "url": "https://machine-learning-apps.github.io/MLDevOps/docs/model_timeline/",
     "relUrl": "/docs/model_timeline/"
   }
