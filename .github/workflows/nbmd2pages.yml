@@ -9,7 +9,7 @@ on:
       - 'project/*.csv'
 
 jobs:
-  convert-notebook:
+  convert-docs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out
