@@ -84,17 +84,28 @@ jobs:
         pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
         echo "$(date),rocket,model deployment,model link,${{ steps.prod_deployment.outputs.prod_swagger_uri }},git-pull-request,$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
-          
+      
     - name: Commit files
-      id: commit_files
       run: |
-        git config --local user.email "awmatheson@github.com"
-        git config --local user.name "awmatheson"
+        git config --local user.email awmatheson@gmail.com
+        git config --local user.name awmatheson
+        git checkout -b update-deploy
+        git reset
         git add project/model_events.csv
-        git commit -m "Add new training run"
-        
-    - name: Push changes
-      id: push_changes
-      uses: ad-m/github-push-action@master
+        git commit -m "Add new deployment"
+        git push -f --set-upstream origin update-deploy
+          
+    - name: Open a PR
+      uses: actions/github-script@0.5.0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          var fs = require('fs');
+          github.pulls.create({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        title: 'Deployment Update',
+                        head: 'update-deploy',
+                        base: 'master',
+                        body: `New Deployment`
+                        })
