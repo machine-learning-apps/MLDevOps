@@ -1,16 +1,18 @@
-name: Convert Notebooks To Docs
+name: Data To Pages
 on:
   push:
     branches:
       - master
     paths:
       - 'notebooks/*.ipynb'
+      - 'project/*.md'
+      - 'project/*.csv'
 
 jobs:
-  convert-notebook:
+  convert-docs:
     runs-on: ubuntu-latest
     steps:
-    - name: Copy Repository Contents
+    - name: Check out
       uses: actions/checkout@master
       with:
         persist-credentials: false
@@ -19,6 +21,11 @@ jobs:
       with:
         python-version: '3.6'
         architecture: 'x64'
+
+    - name: Copy Repository Contents
+      run: |
+        chmod -R 777 docs/docs
+        ./action_files/copy_files.sh
     
     - name: Run notebook converter
       run: |

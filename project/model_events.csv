@@ -1,6 +1,3 @@
-datetime,icon,event_type,comment,link,reference
-Fri Jan 29 10:43:05 EST 2020,flame,increased accuracy by 3%,commit,601423b,https://github.com/machine-learning-apps/actions-ml-cicd/commit/52872721ab6090ea05aa32ca44d11e935d5cfa4f
-Fri Jan 29 11:43:05 EST 2020,rocket,deploy,deployed a model to production,demo-mlops-2,https://github.com/machine-learning-apps/actions-ml-cicd/commit/52872721ab6090ea05aa32ca44d11e935d5cfa4f
-Fri Jan 31 1:43:05 EST 2020,checklist,experiments,ran 25 experiments,WandB.com,https://app.wandb.ai/hamelsmu/test-wandb-action?workspace=user-hamelsmu
-Fri Feb 02 12:20:10 EST 2020,flame,increased accuracy by 2%,commit,601423b,https://github.com/machine-learning-apps/actions-ml-cicd/commit/52872721ab6090ea05aa32ca44d11e935d5cfa4f
-Fri Feb 08 12:20:10 EST 2020,flame,increased accuracy by 1.1%,commit,601423b,https://github.com/machine-learning-apps/actions-ml-cicd/commit/52872721ab6090ea05aa32ca44d11e935d5cfa4f
+datetime,icon,event_type,details,detail_link,link_type,link,reference
+Fri Feb 21 03:38:10 UTC 2020,flame,"Model Training - Alpha: 0.55, MSE: 2919.01",experiment link,https://mlworkspace.azure.ai/portal/subscriptions/1308a130-d549-44e1-ba66-ce8c487d76e3/resourceGroups/gha_and_aml_rg/providers/Microsoft.MachineLearningServices/workspaces/same-demo-wus2/experiments/github-actions-ai-demo/runs/github-actions-ai-demo_1582255987_dc974e85,git-commit,5fb4ec9,https://www.github.com/machine-learning-apps/MLDevOps/pull/12
+Fri Feb 21 10:13:43 UTC 2020,rocket,model deployment,model link,http://13.66.175.74:80/api/v1/service/prod-aks/swagger.json,git-pull-request,499ed88,https://www.github.com/machine-learning-apps/MLDevOps/pull/null

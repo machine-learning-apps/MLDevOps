@@ -1,4 +1,4 @@
-name: Deployment (CI/CD)
+name: DevOps for ML - Model Deployment (CD)
 
 on:
   push:
@@ -8,45 +8,104 @@ on:
     - 'code/**'
 
 jobs:
-  train-and-deploy:
+  deploy:
     name: Model Deployment
     runs-on: ubuntu-latest
 
     steps:
     - name: Check Out Repository
+      id: checkout_repository
       uses: actions/checkout@master
     
     - name: Azure Login
+      id: azure_login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Set up Python 3.7
+      id: python_setup
       uses: actions/setup-python@v1
       with:
         python-version: 3.7
     
     - name: Install Dependencies
+      id: dependencies_setup
       run: |
         python -m pip install --upgrade pip
         pip install -r 'aml_service/ci_cd/requirements.txt'
     
     - name: Create or Connect to Workspace
+      id: workspace_setup
       run: |
         python 'aml_service/ci_cd/00-WorkSpace.py' --subscription-id ${{ secrets.SUBSCRIPTION_ID }} --workspace-name ${{ secrets.WORKSPACE_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }} --location ${{ secrets.LOCATION }} --friendly-name ${{ secrets.FRIENDLY_NAME }}
     
     - name: Profile Model
+      id: profile_model
       run: |
         python 'aml_service/ci_cd/30-ProfileModel.py'
     
     - name: Dev Deployment
+      id: dev_deployment
       run: |
         python 'aml_service/ci_cd/40-DevDeployment.py'
+      env:
+        CPU: ${{ steps.profile_model.outputs.cpu }}
+        MEMORY: ${{ steps.profile_model.outputs.memory }}
+        IMAGE_ID: ${{ steps.profile_model.outputs.image_id }}
     
     - name: Test Deployment
+      id: test_deployment
       run: |
         python 'aml_service/ci_cd/50-TestDeployment.py'
+      env:
+        CPU: ${{ steps.profile_model.outputs.cpu }}
+        MEMORY: ${{ steps.profile_model.outputs.memory }}
+        IMAGE_ID: ${{ steps.profile_model.outputs.image_id }}
     
     - name: Production Deployment
+      id: prod_deployment
       run: |
         python 'aml_service/ci_cd/60-ProdDeployment.py'
+      env:
+        CPU: ${{ steps.profile_model.outputs.cpu }}
+        MEMORY: ${{ steps.profile_model.outputs.memory }}
+        IMAGE_ID: ${{ steps.profile_model.outputs.image_id }}
+    
+    - name: Prod Deployment Details
+      id: prod_deployment_details
+      run: |
+        echo ${{ steps.prod_deployment.outputs.prod_scoring_uri }}
+        echo ${{ steps.prod_deployment.outputs.prod_swagger_uri }}
+
+    - name: Update Model Timeline
+      id: portal_url
+      run: |
+        pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+        git_hash=$(git rev-parse --short "$GITHUB_SHA")
+        echo "$(date),rocket,model deployment,model link,${{ steps.prod_deployment.outputs.prod_swagger_uri }},git-pull-request,$git_hash,https://www.github.com/$GITHUB_REPOSITORY/pull/$pull_number" >> project/model_events.csv
+      
+    - name: Commit files
+      run: |
+        git config --local user.email awmatheson@gmail.com
+        git config --local user.name awmatheson
+        git checkout -b update-deploy
+        git reset
+        git add project/model_events.csv
+        git commit -m "Add new deployment"
+        git push -f --set-upstream origin update-deploy
+          
+    - name: Open a PR
+      uses: actions/github-script@0.5.0
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          var fs = require('fs');
+          github.pulls.create({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        title: 'Deployment Update',
+                        head: 'update-deploy',
+                        base: 'master',
+                        body: `New Deployment`
+                        })

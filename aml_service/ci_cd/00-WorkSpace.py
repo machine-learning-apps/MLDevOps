@@ -76,7 +76,12 @@ except WorkspaceException:
     )
 
 # Write out the Workspace ARM properties to a config file
-ws.write_config(path=workspace_config_settings["path"], file_name=workspace_config_settings["file_name"])
+config_file_path = os.environ.get("GITHUB_WORKSPACE", default="aml_service")
+config_file_name = "aml_arm_config.json"
+ws.write_config(
+    path=config_file_path,
+    file_name=config_file_name
+)
 
 # Print Workspace details --> only print, if repository is private
 print("Workspace name: " + ws.name, 
